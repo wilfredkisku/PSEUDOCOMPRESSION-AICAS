@@ -46,7 +46,7 @@ if __name__ == "__main__":
     levels = 16
     
     #obtain the image 
-    path = 'res/Original_image.bmp'
+    path = 'res/img_08.tif'
     img_a = imageAcquisition(path)
     img = img_a/255.
     img_new = np.zeros((img.shape[0],img.shape[1]), dtype=np.float32)
