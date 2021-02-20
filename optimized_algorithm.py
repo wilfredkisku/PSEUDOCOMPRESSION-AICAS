@@ -1,12 +1,11 @@
-import copy
 import os
+import cv2
+import copy
+import skimage
+import numpy as np
 from math import log10, sqrt
 from pathlib import Path
-import cv2
-import numpy as np
 import matplotlib.pyplot as plt
-import skimage
-import skimage
 
 def imageAcquisition(path):
     
@@ -14,10 +13,12 @@ def imageAcquisition(path):
 
     #converting values to normalized sensor range of (0 to 1000 mV)
     plt.imshow(img)
-    #plt.show()
+    
     return img
 
-def getBlocks(img, i, j):
+def getBlocks(img, i, j, size):
+    
+    #get the block of the image
     b_img = np.zeros((size,size), dtype=np.float32)
     b_img  = img[(size*i):(size*i)+size,(size*j):(size*j)+size]
     return b_img
@@ -54,7 +55,7 @@ if __name__ == "__main__":
     #get the 8X8 images
     for i in range(img.shape[0]//size):
         for j in range(img.shape[1]//size):
-            img_b = getBlocks(img, i, j)
+            img_b = getBlocks(img, i, j, size)
 
             #number of bins for the pseudo compression
             #find the maxium and minimum values from the patch
@@ -87,4 +88,3 @@ if __name__ == "__main__":
     print(img_new_)
     displayImage(img_new_)
     print(calcPSNR(img_a, img_new_))
-    #print(calcSSIM(img, img_new))
