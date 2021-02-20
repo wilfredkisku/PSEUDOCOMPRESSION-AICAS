@@ -18,8 +18,8 @@ def imageAcquisition(path):
     return img
 
 def getBlocks(img, i, j):
-    b_img = np.zeros((8,8), dtype=np.float32)
-    b_img  = img[(8*i):(8*i)+8,(8*j):(8*j)+8]
+    b_img = np.zeros((size,size), dtype=np.float32)
+    b_img  = img[(size*i):(size*i)+size,(size*j):(size*j)+size]
     return b_img
 
 def displayImage(img):
@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
     #levels (defined by the hardware)
     levels = 16
-    
+    size = 8    
     #obtain the image 
     path = 'res/img_08.tif'
     img_a = imageAcquisition(path)
@@ -52,8 +52,8 @@ if __name__ == "__main__":
     img_new = np.zeros((img.shape[0],img.shape[1]), dtype=np.float32)
 
     #get the 8X8 images
-    for i in range(img.shape[0]//8):
-        for j in range(img.shape[1]//8):
+    for i in range(img.shape[0]//size):
+        for j in range(img.shape[1]//size):
             img_b = getBlocks(img, i, j)
 
             #number of bins for the pseudo compression
@@ -68,13 +68,12 @@ if __name__ == "__main__":
             #print(bins)
             #creating thresholds relating to actual conversion
             #filling in the values in the 
-            for k in range(8):
-                for l in range(8): 
+            for k in range(size):
+                for l in range(size): 
                     if bins != 0:
-                        img_new[k+(i*8),l+(j*8)] = int((img_b[k,l] - min_img)/bins)*bins + min_img
-                        print(int((img_b[k,l] - min_img)/bins)*bins + min_img)
+                        img_new[k+(i*size),l+(j*size)] = int((img_b[k,l] - min_img)/bins)*bins + min_img
                     else:
-                        img_new[k+(i*8),l+(j*8)] = max_img
+                        img_new[k+(i*size),l+(j*size)] = max_img
     
     #carry out similarity quantification
     max_img = np.amax(img_new)
