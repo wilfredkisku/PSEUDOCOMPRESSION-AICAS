@@ -66,7 +66,7 @@ if __name__ == "__main__":
             #redundant code
             diff = max_img - min_img 
             bins = diff / levels
-            #print(bins)
+            
             #creating thresholds relating to actual conversion
             #filling in the values in the 
             for k in range(size):
