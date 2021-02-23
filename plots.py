@@ -61,7 +61,7 @@ def testThree():
     pop, age = housing[:,[4,7]].T
 
     gridsize = (3, 2)
-    fig = plt.figure(figsize=(12, 8))
+    fig = plt.figure(figsize=(12, 8), dpi=400.0)
     ax1 = plt.subplot2grid(gridsize, (0, 0), colspan=2, rowspan=2)
     ax2 = plt.subplot2grid(gridsize, (2, 0))
     ax3 = plt.subplot2grid(gridsize, (2, 1))
@@ -72,15 +72,73 @@ def testThree():
     ax1.set_yscale('log')
     ax1.set_ylabel('population')
     ax1.set_xlabel('age')
-    ax2.hist(age, bins='auto')
-    ax3.hist(pop, bins='auto', log=True)
+    ax2.hist(age, bins='auto', facecolor='g')
+    ax3.hist(pop, bins='auto', facecolor='r', log=True)
 
     add_titlebox(ax2, 'Histogram: home age')
     add_titlebox(ax3, 'Histogram: area population (log scl.)')
+    plt.savefig('population.png')
+    plt.show()
+
+def testFour():
+    t = np.arange(0.0, 1.0 + 0.01, 0.01)
+    s = np.cos(2 * 2*np.pi * t)
+    t[41:60] = np.nan
+
+    plt.subplot(2, 1, 1)
+    plt.plot(t, s, '-', lw=2)
+
+    plt.xlabel('time (s)')
+    plt.ylabel('voltage (mV)')
+    plt.title('A sine wave with a gap of NaNs between 0.4 and 0.6')
+    plt.grid(True)
+
+    plt.subplot(2, 1, 2)
+    t[0] = np.nan
+    t[-1] = np.nan
+    plt.plot(t, s, '-', lw=2)
+    plt.title('Also with NaN in first and last point')
+
+    plt.xlabel('time (s)')
+    plt.ylabel('more nans')
+    plt.grid(True)
+
+    plt.tight_layout()
+    plt.show()
+
+def testFive():
+    np.random.seed(19680801)
+
+    x = np.random.rand(10)
+    y = np.random.rand(10)
+    z = np.sqrt(x**2 + y**2)
+
+    plt.subplot(321)
+    plt.scatter(x, y, s=80, c=z, marker=">")
+
+    plt.subplot(322)
+    plt.scatter(x, y, s=80, c=z, marker=(5, 0))
+
+    verts = np.array([[-1, -1], [1, -1], [1, 1], [-1, -1]])
+    plt.subplot(323)
+    plt.xlabel('this is the x label')
+    plt.scatter(x, y, s=80, c=z, marker=verts)
+
+    plt.subplot(324)
+    plt.scatter(x, y, s=80, c=z, marker=(5, 1))
+
+    plt.subplot(325)
+    plt.scatter(x, y, s=80, c=z, marker='+')
+
+    plt.subplot(326)
+    plt.scatter(x, y, s=80, c=z, marker=(5, 2))
+
     plt.show()
 
 if __name__ == "__main__":
 
     #testOne()
     #testTwo()
-    testThree()
+    #testThree()
+    #testFour()
+    testFive()
