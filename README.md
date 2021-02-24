@@ -8,6 +8,7 @@
   <li>max := [ImageBlock]</li>
   <li>bins := (max - min) / [levels]</li>
 </ul>
+
 ## Usage
 
 ## Results
