@@ -55,8 +55,8 @@ if __name__ == "__main__":
 
     #levels define the new threshold levels
     #size defines the block size to be extracted
-    levels = 16
-    size = 8
+    levels = 4
+    size = 64
 
     #obtain the image
     #create a new container for the image
@@ -71,23 +71,26 @@ if __name__ == "__main__":
     
     ax1.hist(img_a.ravel(),256,[0,256])
     displayImage(ax2,img_a,'Original Image')
+    
     #converting the scale tp (0-1000mv)
     img = img_a/255.
     img_new = np.zeros((img.shape[0],img.shape[1]), dtype=np.float32)
-
+    img_new_mov = np.zeros((img.shape[0],img.shape[1]), dtype=np.float32)
     
     #get the 8X8 images
     #at each 8X8 blocks find the min and the max
     for i in range(img.shape[0]//size):
         for j in range(img.shape[1]//size):
             img_b = getBlocks(img, i, j, size)
-
+            img_b_mov = copy.deepcopy(img_b)
+            
             #number of bins for the pseudo compression
             #find the maxium and minimum values from the patch
             max_img = np.amax(img_b) 
             min_img = np.amin(img_b)
-            #print(max_img,min_img)
             
+            img_b_mov = img_b_mov - min_img 
+
             #redundant code
             diff = max_img - min_img 
             bins = diff / levels
@@ -98,19 +101,23 @@ if __name__ == "__main__":
                 for l in range(size): 
                     if bins != 0:
                         img_new[k+(i*size),l+(j*size)] = int((img_b[k,l] - min_img)/bins)*bins + min_img
+                        #check this logic
+                        img_new_mov[k+(i*size),l+(j*size)] = int((img_b_mov[k,l] - min_img)/bins)*bins + min_img
                     else:
                         img_new[k+(i*size),l+(j*size)] = max_img
+                        img_new_mov[k+(i*size),l+(j*size)] = max_img
     
     #carry out similarity quantification
     max_img = np.amax(img_new)
     min_img = np.amin(img_new)
-    print(max_img,min_img)
     img_new *= (255. / max_img)
     img_new_ = np.zeros((img.shape[0],img.shape[1]), dtype=np.uint8)
     for i in range(img_new.shape[0]):
         for j in range(img_new.shape[1]):
             img_new_[i,j] = int(img_new[i,j])
-    
+   
+    displayImage(ax3,img_new_,'Thresholded Image')
     print(calcPSNR(img_a, img_new_))
     plt.tight_layout() 
     plt.show()
+
