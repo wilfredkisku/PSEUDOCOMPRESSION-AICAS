@@ -56,7 +56,7 @@ if __name__ == "__main__":
     #levels define the new threshold levels
     #size defines the block size to be extracted
     levels = 4
-    size = 64
+    size = 128
 
     #obtain the image
     #create a new container for the image
@@ -65,9 +65,10 @@ if __name__ == "__main__":
 
     #define the figures that are to be generated
     plt.figure()
-    ax1 = plt.subplot2grid((2, 2), (0, 0), colspan=2)
-    ax2 = plt.subplot2grid((2, 2), (1, 0))
-    ax3 = plt.subplot2grid((2, 2), (1, 1))
+    ax1 = plt.subplot2grid((3, 2), (0, 0), colspan=2)
+    ax2 = plt.subplot2grid((3, 2), (1, 0))
+    ax3 = plt.subplot2grid((3, 2), (1, 1))
+    ax4 = plt.subplot2grid((3, 2), (2, 0))
     
     ax1.hist(img_a.ravel(),256,[0,256])
     displayImage(ax2,img_a,'Original Image')
@@ -102,22 +103,33 @@ if __name__ == "__main__":
                     if bins != 0:
                         img_new[k+(i*size),l+(j*size)] = int((img_b[k,l] - min_img)/bins)*bins + min_img
                         #check this logic
-                        img_new_mov[k+(i*size),l+(j*size)] = int((img_b_mov[k,l] - min_img)/bins)*bins + min_img
+                        img_new_mov[k+(i*size),l+(j*size)] = img_b_mov[k,l]
                     else:
                         img_new[k+(i*size),l+(j*size)] = max_img
-                        img_new_mov[k+(i*size),l+(j*size)] = max_img
+                        img_new_mov[k+(i*size),l+(j*size)] = img_b_mov[k,l]
     
     #carry out similarity quantification
     max_img = np.amax(img_new)
     min_img = np.amin(img_new)
-    img_new *= (255. / max_img)
+    #img_new *= (255. / max_img)
+    img_new *= 255.
     img_new_ = np.zeros((img.shape[0],img.shape[1]), dtype=np.uint8)
+
     for i in range(img_new.shape[0]):
         for j in range(img_new.shape[1]):
             img_new_[i,j] = int(img_new[i,j])
-   
+    
+    img_new_mov *= 255.
+    img_new_mov_ = np.zeros((img.shape[0],img.shape[1]), dtype=np.uint8)
+
+    for i in range(img_new_mov.shape[0]):
+        for j in range(img_new_mov.shape[1]):
+            img_new_mov_[i,j] = int(img_new_mov[i,j])
+
     displayImage(ax3,img_new_,'Thresholded Image')
-    print(calcPSNR(img_a, img_new_))
+    displayImage(ax4,img_new_mov,'Shifted Image')
+    print('PSNR of thresholded Image : '+str(calcPSNR(img_a, img_new_)))
+    print('PSNR of shifted Image : '+str(calcPSNR(img_a, img_new_mov_)))
     plt.tight_layout() 
     plt.show()
 
