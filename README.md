@@ -1,1 +1,3 @@
-# psudocompression-algo
+# Compression Algorithm Verification (Python)
+
+## Algorithm 
