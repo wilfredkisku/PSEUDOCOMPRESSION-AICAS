@@ -23,5 +23,3 @@ The main code functionality is put into the <code>optimized_algorithm.py</code> 
 ## Results
 
 <img src="https://github.com/wilfredkisku/pseudocompression-algo/blob/main/res/processed_image.png" ="100">
-![alt text](https://github.com/wilfredkisku/pseudocompression-algo/blob/main/res/processed_image.png?raw=true | width=100)
-![alt text](https://github.com/wilfredkisku/pseudocompression-algo/blob/main/res/processed_image_thermal.png?raw=true | width=100)
