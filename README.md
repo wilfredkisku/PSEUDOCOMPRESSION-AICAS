@@ -23,4 +23,4 @@ The main code functionality is put into the <code>optimized_algorithm.py</code> 
 ## Results
 | Normal Grayscale Image | Thermal Image |
 |------------|-------------|
-|<center><img src="https://github.com/wilfredkisku/pseudocompression-algo/blob/main/res/processed_image_normal.png" height="100"></center>| <img src="https://github.com/wilfredkisku/pseudocompression-algo/blob/main/res/processed_image_thermal.png" height="100"> |
+|<p align="center"><img src="https://github.com/wilfredkisku/pseudocompression-algo/blob/main/res/processed_image_normal.png" height="100"></p>| <img src="https://github.com/wilfredkisku/pseudocompression-algo/blob/main/res/processed_image_thermal.png" height="100"> |
