@@ -11,8 +11,10 @@
       <li>[ImageBlock] := [Image][nrow,ncol]</li>
       <li>min, max := [ImageBlock]</li>
       <li>bins := (max - min)/[levels]</li>
-    </ul>  
+      <li>[ImageBlock] := shiftThresholds[levels]</li>
+    </ul>
   </ul>
+  <li>[ImageRescale]</li>
 </ul>
 
 ## Usage
