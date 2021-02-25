@@ -23,7 +23,4 @@ The main code functionality is put into the <code>optimized_algorithm.py</code> 
 ## Results
 | col 1      | col 2      |
 |------------|-------------|
-|<img src="https://github.com/wilfredkisku/pseudocompression-algo/blob/main/res/processed_image_normal.png" height="100">
-|
-<img src="https://github.com/wilfredkisku/pseudocompression-algo/blob/main/res/processed_image_thermal.png" height="100">
-|
+|<img src="https://github.com/wilfredkisku/pseudocompression-algo/blob/main/res/processed_image_normal.png" height="100"> | <img src="https://github.com/wilfredkisku/pseudocompression-algo/blob/main/res/processed_image_thermal.png" height="100"> |
