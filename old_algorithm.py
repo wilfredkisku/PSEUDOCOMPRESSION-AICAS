@@ -30,6 +30,12 @@ def calcSSIM(image_true, image_test):
     val_ssim = skimage.metrics.structural_similarity(image_true, image_test)
     return val_ssim
 
+def compression(comp, size):
+
+    levels = int(((100. - comp)/100.)*(size*size))
+
+    return levels
+
 def algo(s,l,path):
     
     
